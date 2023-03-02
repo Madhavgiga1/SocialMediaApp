@@ -1,17 +1,27 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    //id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.secrets_gradle_plugin' version '0.4'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
+    //id 'com.google.gms.google-services'
+    //id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
-    compileSdk 33
+    compileSdk 31
+    buildToolsVersion '33.0.1'
 
     defaultConfig {
         applicationId "com.example.socialmedialinked"
-        minSdk 21
+        minSdkVersion 31
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        //buildConfigField("String", "WEB_CLIENT_ID",'"577770718410-ghq3gluhi1h0h2bp4sbb3588373vpsur.apps.googleusercontent.com"')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,6 +32,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -29,15 +44,121 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    compileSdkVersion 33
 }
 
 dependencies {
 
+
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    //implementation 'com.google.firebase:firebase-auth:21.1.0'
     testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Material Components
+    implementation 'com.google.android.material:material:1.6.1'
+
+    // Navigation Component
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+
+    // Room components
+    implementation "androidx.room:room-runtime:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+    androidTestImplementation "androidx.room:room-testing:2.4.3"
+
+    // Data binding
+//    kapt "com.android.databinding:compiler:3.2.0-alpha10"
+//    kapt "androidx.databinding:databinding-common:4.2.2"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:2.43.2"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+
+    // Image Loading library Coil
+    implementation "io.coil-kt:coil:2.1.0"
+
+    //implementation 'com.google.android.libraries.places:places:3.0.0'
+
+
+    // This is for getting the location
+    //implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.13.1'
+
+    // Import the Firebase BoM
+
+
+    // Import the BoM for the Firebase platform
+    //implementation platform('com.google.firebase:firebase-bom:31.1.1')
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    //implementation 'com.google.firebase:firebase-auth-ktx'
+
+
+    //implementation 'com.google.firebase:firebase-analytics-ktx'
+    // Places SDK
+    implementation 'com.android.volley:volley:1.2.1'
+
+    // Easy Permissions
+    //implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    // Util
+    //implementation 'com.google.maps.android:android-maps-utils:2.2.0'
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    implementation 'com.karumi:dexter:6.2.3'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    //implementation 'com.google.firebase:firebase-auth:21.1.0'
+    //implementation files('libs/YouTubeAndroidPlayerApi.jar')    //implementation 'com.google.android.youtube:youtube-player-api:17.0.0'
+    //implementation 'com.google.android.gms:play-services-auth:20.4.1'
+
+
+
+    implementation 'com.tbuonomo:morph-bottom-navigation:1.0.1'
+
+
+
+
 }
