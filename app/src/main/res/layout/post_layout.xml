@@ -1,151 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="570dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_marginStart="1dp"
+    <data>
+        <variable
+            name="IndividualPost"
+            type="com.example.socialmedialinked.models.Indivpost"
+            />
+        <variable
+            name="Profile"
+            type="com.example.socialmedialinked.viewmodels.UserViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="410dp"
+        android:background="@color/backgroundwhitishbg"
+        android:padding="7dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
-        app:cardBackgroundColor="@color/Cream"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:strokeColor="@color/mainactivitybg"
-        app:strokeWidth="2dp">
+        android:layout_height="570dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:padding="8dp"
-            android:layout_height="match_parent">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="370dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
 
-            <ImageView
-                android:id="@+id/author_pic"
-                android:layout_width="50dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+            android:layout_marginBottom="1dp"
+            app:cardBackgroundColor="@color/glightGray"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:strokeColor="@color/mainactivitybg"
+            app:strokeWidth="1dp">
 
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="TextView"
-                android:textColor="@color/BalticSeabgcolor"
-                android:textSize="20sp"
-                app:fontFamily="@font/anton"
-                app:layout_constraintBottom_toBottomOf="@+id/author_pic"
-                app:layout_constraintStart_toEndOf="@+id/author_pic"
-                app:layout_constraintTop_toTopOf="@+id/author_pic"
-                app:layout_constraintVertical_bias="0.0" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/timestamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="TextView"
-                android:textColor="@color/mainactivitybg"
-                android:textSize="10sp"
-                app:fontFamily="@font/anton"
-                app:layout_constraintEnd_toEndOf="@+id/author"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/author"
-                app:layout_constraintTop_toBottomOf="@+id/author" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/author_pic"
+                    android:layout_width="50dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="16dp"
 
-            <TextView
-                android:id="@+id/posttext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="TextView"
-                android:textColor="@color/BalticSeabgcolor"
-                android:textSize="15sp"
-                app:fontFamily="@font/alata"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/author_pic" />
+                    android:layout_marginTop="8dp"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/post_image"
-                android:layout_width="0dp"
-                android:layout_height="300dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/posttext"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                <TextView
+                    android:id="@+id/author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@{String.valueOf(Profile.currentUser.displayName)}"
+                    android:textColor="@color/BalticSeabgcolor"
+                    android:textSize="20sp"
+                    app:fontFamily="@font/anton"
+                    app:layout_constraintBottom_toBottomOf="@+id/author_pic"
+                    app:layout_constraintStart_toEndOf="@+id/author_pic"
+                    app:layout_constraintTop_toTopOf="@+id/author_pic"
+                    app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_image"
-                app:srcCompat="@drawable/likeicon" />
+                <TextView
+                    android:id="@+id/timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{String.valueOf(IndividualPost.post_timestamp)}"
+                    android:textColor="@color/mainactivitybg"
+                    android:textSize="10sp"
+                    app:fontFamily="@font/anton"
+                    app:layout_constraintStart_toEndOf="@+id/author_pic"
+                    app:layout_constraintTop_toBottomOf="@+id/author" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="385dp"
-                android:layout_height="0dp"
+                <TextView
+                    android:id="@+id/posttext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:maxLength="5"
+                    android:text="@{String.valueOf(IndividualPost.post_text)}"
+                    android:textColor="@color/BalticSeabgcolor"
+                    android:textSize="15sp"
+                    app:fontFamily="@font/alata"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/author_pic" />
 
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginEnd="2dp"
-                android:padding="10dp"
-                app:cardBackgroundColor="@color/whitishyellow"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4"
-                app:strokeColor="@color/mainactivitybg"
-                app:strokeWidth="2dp">
+                <ImageView
+                    android:id="@+id/post_image"
+                    loadImageFromUrl="@{IndividualPost.post_image.toString()}"
+                    android:layout_width="0dp"
+                    android:layout_height="270dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/posttext"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/post_image"
+                    app:srcCompat="@drawable/likeicon" />
 
-                    <Button
-                        android:id="@+id/Like_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="Like"
-                        app:backgroundTint="@color/darkgreygreen"
-                        app:cornerRadius="5dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageView5"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="340dp"
+                    android:layout_height="0dp"
 
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0"
-                        app:srcCompat="@drawable/thumbup" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="10dp"
+                    app:cardBackgroundColor="@color/whitishyellow"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4"
+                    app:strokeColor="@color/Pewter"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <Button
+                            android:id="@+id/Like_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Like"
+                            app:backgroundTint="@color/darkgreygreen"
+                            app:cornerRadius="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="30dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.722"
+                            app:srcCompat="@drawable/thumbup" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

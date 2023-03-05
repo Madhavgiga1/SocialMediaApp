@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -12,7 +12,29 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/postFragment"
-        android:name="com.example.socialmedialinked.PostFragment"
+        android:name="com.example.socialmedialinked.ui.fragments.PostFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        tools:layout="@layout/fragment_post" >
+        <action
+            android:id="@+id/action_postFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.socialmedialinked.ui.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/myPostsFragment"
+        android:name="com.example.socialmedialinked.ui.fragments.MyPostsFragment"
+        android:label="fragment_my_posts"
+        tools:layout="@layout/fragment_my_posts" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.socialmedialinked.ui.fragments.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
