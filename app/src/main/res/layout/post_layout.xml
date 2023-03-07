@@ -104,7 +104,7 @@
 
                 <ImageView
                     android:id="@+id/post_image"
-                    loadImageFromUrl="@{IndividualPost.post_image.toString()}"
+                    loadImageFromUrl="@{IndividualPost.post_image}"
                     android:layout_width="0dp"
                     android:layout_height="270dp"
                     android:layout_marginTop="8dp"

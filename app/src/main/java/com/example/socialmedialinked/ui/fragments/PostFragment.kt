@@ -4,6 +4,7 @@ import android.Manifest//correct manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,6 +12,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +26,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.socialmedialinked.R
 import com.example.socialmedialinked.databinding.FragmentPostBinding
 import com.example.socialmedialinked.models.Indivpost
+import com.example.socialmedialinked.models.User
 import com.example.socialmedialinked.viewmodels.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -37,25 +39,33 @@ import java.util.*
 class PostFragment : Fragment() {
     private var _binding: FragmentPostBinding? = null
     private val binding get() = _binding!!
-    var simage: String? = null
+
+
     val PICK_VIDEO_REQUEST_CODE = 100
     var svideo: Uri? = null
-    private lateinit var db: DatabaseReference
+
+    var auth= FirebaseAuth.getInstance()
+    val db = FirebaseDatabase.getInstance().reference
+    val usersRef = db.child("Posts")
+    lateinit var newuri:String
+    var email = auth.currentUser?.email
+    var currentname:String?=null
+
+    val fileName = "profile_picture.jpg"
     var bitmap: Bitmap? = null
-    private lateinit var mainViewModel: MainViewModel
+    private fun encodeEmail(email: String): String {
+        return email.replace(".", ",")
+    }
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        currentname= mainViewModel.user?.displayName
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         _binding = FragmentPostBinding.inflate(layoutInflater, container, false)
         binding.cameraPost.setOnClickListener {
@@ -73,10 +83,43 @@ class PostFragment : Fragment() {
         return binding.root
 
     }
+    private fun insertpostData() {
+
+        val baos = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+        var timer = getCurrentTimestamp()
+
+        if(bitmap!=null) {
+            val storageRef = FirebaseStorage.getInstance().getReference("Posts").child("${UUID.randomUUID()}.jpg")
+            storageRef.putBytes(data)
+                .addOnSuccessListener { taskSnapshot ->
+                    Toast.makeText(requireContext(),"Success",Toast.LENGTH_LONG).show()
+                    storageRef.downloadUrl.addOnSuccessListener { uri ->
+                        // Get the download URL for the uploaded image
+                        val downloadUrl = uri.toString()
+                        val post_text = binding.editTextTextMultiLine.text.toString()
+                        val user=mainViewModel.setupProfle()
+                        val name =user?.displayName!! //auth.currentUser?.displayName!!
+
+                        val post = Indivpost(name, timer, post_text, downloadUrl)
+                        FirebaseDatabase.getInstance().getReference("Posts").push().setValue(post)
+                        Log.d(ContentValues.TAG, "Download URL: $downloadUrl")
+                    }
+                    Log.d(ContentValues.TAG, "Profile picture uploaded successfully")
+                }
+                .addOnFailureListener { exception ->
+                    // Handle any errors
+                    Toast.makeText(requireContext(),"No Success",Toast.LENGTH_LONG).show()
+                    Log.e(ContentValues.TAG, "Error uploading profile picture", exception)
+                }
+            findNavController().navigate(R.id.action_postFragment_to_homeFragment)
+        }
+    }
 
     private fun UploadVideoFromGallery() {
         binding.uploadeImage.visibility=View.INVISIBLE
-        binding.videoView.visibility=View.VISIBLE
+
 
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_VIDEO_REQUEST_CODE)
@@ -88,7 +131,7 @@ class PostFragment : Fragment() {
 
         if (requestCode == PICK_VIDEO_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val videoUri = data.data
-            binding.videoView.setVideoURI(videoUri)
+
 
             // Upload the video to Firebase Storage
             val storageRef = FirebaseStorage.getInstance().reference
@@ -116,7 +159,7 @@ class PostFragment : Fragment() {
                 val byteArray = byteArrayOutputStream.toByteArray()
                 //simage = Base64.encodeToString(byteArray, Base64.DEFAULT)
                 binding.uploadeImage.visibility = View.VISIBLE
-                binding.videoView.visibility = View.INVISIBLE
+
                 binding.uploadeImage.setImageBitmap(bitmap)
             }
         }
@@ -197,7 +240,7 @@ class PostFragment : Fragment() {
                         val byteArray = byteArrayOutputStream.toByteArray()
                         //simage = Base64.encodeToString(byteArray, Base64.DEFAULT)
                         binding.uploadeImage.visibility = View.VISIBLE
-                        binding.videoView.visibility = View.INVISIBLE
+
                         binding.uploadeImage.setImageBitmap(bitmap)
 
                     } catch (e: Exception) {
@@ -229,37 +272,10 @@ class PostFragment : Fragment() {
             }
         builder.create().show()
     }
-    fun getCurrentTimestamp(): String? {
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(
-            Calendar
-                .getInstance().getTime()
-        )
+    fun getCurrentTimestamp(): String{
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime())
     }
-    private fun insertpostData() {
-        val posttxt: String? = binding.editTextTextMultiLine.text.toString()
-        val time = getCurrentTimestamp()
-        val post = Indivpost("pp", time!!, posttxt)
-        val db = FirebaseDatabase.getInstance().getReference("posts")
-        val baos = ByteArrayOutputStream()
-        val userid= FirebaseAuth.getInstance().currentUser?.displayName
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
 
-        simage = (mainViewModel.uploadImage(requireContext(), data)).toString()
-        post.post_image = simage
-
-        // Create a new child node using push() method
-        val newPostRef = db.push()
-
-        // Set the value of the new child node
-        newPostRef.setValue(post).addOnSuccessListener {
-            Toast.makeText(requireContext(), "Success", Toast.LENGTH_LONG).show()
-        }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Fail", Toast.LENGTH_LONG).show()
-        }
-
-        findNavController().navigate(R.id.action_postFragment_to_homeFragment)
-    }
 
 }
 

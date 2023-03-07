@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/profileFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -23,18 +23,23 @@
         android:id="@+id/profileFragment"
         android:name="com.example.socialmedialinked.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myPostsFragment"
         android:name="com.example.socialmedialinked.ui.fragments.MyPostsFragment"
         android:label="fragment_my_posts"
         tools:layout="@layout/fragment_my_posts" />
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.socialmedialinked.ui.fragments.LoginFragment"
-        android:label="LoginFragment" >
+        android:id="@+id/editFragment"
+        android:name="com.example.socialmedialinked.ui.fragments.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_editFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>
