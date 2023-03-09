@@ -5,11 +5,13 @@ import com.example.socialmedialinked.models.User
 
 class UserViewModel : ViewModel() {
 
-    var currentUser: User? = null
+    var currentUser: User?=null
 
     @JvmName("setCurrentUser1")
-    fun setCurrentUser(user: User) {
-        currentUser = user
+    fun setCurrentUser(user: User?) {
+        if (user != null) {
+            currentUser = user
+        }
     }
 
     @JvmName("getCurrentUser1")
@@ -17,14 +19,5 @@ class UserViewModel : ViewModel() {
         return currentUser
     }
 
-    companion object {
-        private var instance: UserViewModel? = null
 
-        fun getInstance(): UserViewModel {
-            if (instance == null) {
-                instance = UserViewModel()
-            }
-            return instance!!
-        }
-    }
 }

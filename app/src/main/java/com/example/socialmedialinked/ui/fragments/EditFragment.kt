@@ -29,7 +29,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 
@@ -40,7 +39,7 @@ class EditFragment : Fragment() {
     private val binding get() = _binding!!
     var auth= FirebaseAuth.getInstance()
     val db = FirebaseDatabase.getInstance().reference
-    val usersRef = db.child("users")
+    val usersRef = db.child("Users")
     lateinit var newuri:String
     var email = auth.currentUser?.email
 

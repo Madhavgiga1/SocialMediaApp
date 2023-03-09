@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.socialmedialinked.R
 import com.example.socialmedialinked.databinding.FragmentProfileBinding
 import com.example.socialmedialinked.viewmodels.MainViewModel
+import com.example.socialmedialinked.viewmodels.UserViewModel
 import com.google.firebase.auth.FirebaseUser
 
 
@@ -17,14 +18,17 @@ class ProfileFragment : Fragment() {
     private var _binding:FragmentProfileBinding?=null
     private val binding get() = _binding!!
     lateinit var currentuser:FirebaseUser
-    //private lateinit var databaseReference: DatabaseReference
-    //private lateinit var firebaseAuth: FirebaseAuth
+
     lateinit var mainViewModel: MainViewModel
+    lateinit var userViewModel: UserViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //firebaseAuth = FirebaseAuth.getInstance()
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        mainViewModel.user=mainViewModel.setupProfle()
+
+        userViewModel= ViewModelProvider(requireActivity().viewModelStore, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
+        //mainViewModel.user=mainViewModel.setupProfle()
        // databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(encodeEmail(firebaseAuth.currentUser?.email!!))
     }
 
@@ -36,7 +40,7 @@ class ProfileFragment : Fragment() {
         binding.editButton.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_editFragment)
         }
-        binding.user=mainViewModel.user
+        binding.user=userViewModel.getCurrentUser()
 
         return binding.root
     }

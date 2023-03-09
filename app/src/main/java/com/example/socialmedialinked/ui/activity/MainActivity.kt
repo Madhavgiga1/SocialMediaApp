@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.socialmedialinked.R
 import com.example.socialmedialinked.databinding.ActivityMainBinding
+import com.example.socialmedialinked.models.User
 import com.example.socialmedialinked.viewmodels.MainViewModel
 import com.example.socialmedialinked.viewmodels.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -20,8 +21,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+        userViewModel = ViewModelProvider(viewModelStore, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
+        val user = intent.getParcelableExtra<User>("user")
+        userViewModel.setCurrentUser(user!!)
         binding=ActivityMainBinding.inflate(layoutInflater)
-        val user =FirebaseAuth.getInstance().currentUser
+
 
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
