@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.socialmedialinked.databinding.PostLayoutBinding
 import com.example.socialmedialinked.models.Indivpost
 import com.example.socialmedialinked.utils.PostsDiffUtil
+import com.example.socialmedialinked.viewmodels.UserViewModel
 
-class PostAdapter:RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
+class PostAdapter():RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
+    lateinit var userViewModel:UserViewModel
     var posts=emptyList<Indivpost>()
+
     class MyViewHolder(private val binding:PostLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(post:Indivpost){
             binding.individualPost=post
+            binding.profile= UserViewModel().getCurrentUser()
             binding.executePendingBindings()
         }
 

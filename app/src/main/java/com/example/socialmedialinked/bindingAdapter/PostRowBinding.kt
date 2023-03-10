@@ -8,6 +8,8 @@ import androidx.navigation.findNavController
 import coil.load
 import com.bumptech.glide.Glide
 import com.example.socialmedialinked.R
+import com.google.android.material.card.MaterialCardView
+import com.google.firebase.database.FirebaseDatabase
 
 class PostRowBinding {
     companion object {
@@ -24,6 +26,14 @@ class PostRowBinding {
                 }
             }
 
+        }
+
+        @BindingAdapter("likeclicked")
+        @JvmStatic
+        fun likeClicked(cardView:MaterialCardView, isLiked: Boolean) {
+            if(isLiked) {
+                var dbref= FirebaseDatabase.getInstance().getReference("Posts")
+            }
         }
 
     }

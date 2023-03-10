@@ -10,25 +10,28 @@
             />
         <variable
             name="Profile"
-            type="com.example.socialmedialinked.viewmodels.UserViewModel" />
+            type="com.example.socialmedialinked.models.User" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="410dp"
-        android:background="@color/backgroundwhitishbg"
-        android:padding="7dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+
+        android:layout_marginTop="6dp"
         android:layout_marginBottom="1dp"
-        android:layout_height="570dp">
+        android:background="@color/whitishyellow"
+        android:paddingTop="7dp"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
+        android:paddingBottom="7dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="370dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginStart="9dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
 
             android:layout_marginBottom="1dp"
             app:cardBackgroundColor="@color/glightGray"
@@ -44,16 +47,15 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp">
+                android:layout_height="match_parent">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/author_pic"
-                    android:layout_width="50dp"
+                    loadImageFromUrl="@{IndividualPost.post_author_image}"
+                    android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginStart="16dp"
-
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="14dp"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="@{String.valueOf(Profile.currentUser.displayName)}"
+                    android:text="@{String.valueOf(IndividualPost.post_author_name)}"
                     android:textColor="@color/BalticSeabgcolor"
                     android:textSize="20sp"
                     app:fontFamily="@font/anton"
@@ -78,27 +80,27 @@
                     android:id="@+id/timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@{String.valueOf(IndividualPost.post_timestamp)}"
                     android:textColor="@color/mainactivitybg"
-                    android:textSize="10sp"
+                    android:textSize="15sp"
                     app:fontFamily="@font/anton"
-                    app:layout_constraintStart_toEndOf="@+id/author_pic"
-                    app:layout_constraintTop_toBottomOf="@+id/author" />
+                    app:layout_constraintBottom_toBottomOf="@+id/author"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/author"
+                    app:layout_constraintVertical_bias="0.117" />
 
                 <TextView
                     android:id="@+id/posttext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:maxLength="5"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+
                     android:text="@{String.valueOf(IndividualPost.post_text)}"
                     android:textColor="@color/BalticSeabgcolor"
-                    android:textSize="15sp"
-                    app:fontFamily="@font/alata"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
+                    android:textSize="18sp"
+                    app:fontFamily="@font/cherry_cream_soda"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/author_pic" />
 
@@ -107,7 +109,7 @@
                     loadImageFromUrl="@{IndividualPost.post_image}"
                     android:layout_width="0dp"
                     android:layout_height="270dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,57 +121,128 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/post_image"
                     app:srcCompat="@drawable/likeicon" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="340dp"
-                    android:layout_height="0dp"
-
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginBottom="1dp"
-                    android:padding="10dp"
-                    app:cardBackgroundColor="@color/whitishyellow"
-                    app:cardCornerRadius="8dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView4"
-                    app:strokeColor="@color/Pewter"
-                    app:strokeWidth="1dp">
+                    tools:layout_editor_absoluteX="-46dp">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/like_card"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#E5E3E8"
+                        app:cardCornerRadius="35dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
-                        <Button
-                            android:id="@+id/Like_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:text="Like"
-                            app:backgroundTint="@color/darkgreygreen"
-                            app:cornerRadius="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView5"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="30dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="16dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.722"
-                            app:srcCompat="@drawable/thumbup" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                            <ImageView
+                                android:id="@+id/like_btn_image"
+                                android:layout_width="30dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/blanllike" />
+
+                            <TextView
+                                android:id="@+id/like_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                app:fontFamily="@font/cherry_cream_soda"
+                                app:layout_constraintBottom_toBottomOf="@+id/like_btn_image"
+                                app:layout_constraintStart_toEndOf="@+id/like_btn_image"
+                                app:layout_constraintTop_toTopOf="@+id/like_btn_image"
+                                app:layout_constraintVertical_bias="0.523" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/comment_card"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#E5E3E8"
+                        app:cardCornerRadius="35dp"
+                        app:layout_constraintStart_toEndOf="@id/like_card"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/comment_image"
+                                android:layout_width="30dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/comment" />
+
+                            <TextView
+                                android:id="@+id/comment_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                app:fontFamily="@font/cherry_cream_soda"
+                                app:layout_constraintBottom_toBottomOf="@+id/comment_image"
+                                app:layout_constraintStart_toEndOf="@+id/comment_image"
+                                app:layout_constraintTop_toTopOf="@+id/comment_image"
+                                app:layout_constraintVertical_bias="0.523" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/share_card"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+
+                        app:cardBackgroundColor="#E5E3E8"
+                        app:cardCornerRadius="35dp"
+                        app:layout_constraintStart_toEndOf="@id/like_card"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/share_image"
+                                android:layout_width="30dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/share" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

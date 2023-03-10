@@ -1,27 +1,19 @@
 package com.example.socialmedialinked.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.socialmedialinked.R
 import com.example.socialmedialinked.databinding.FragmentBaseloginBinding
-import com.example.socialmedialinked.ui.activity.LoginActivity
-import com.example.socialmedialinked.ui.activity.MainActivity
-import com.google.firebase.auth.FirebaseAuth
 
 
 class BaseloginFragment : Fragment() {
     private var _binding:FragmentBaseloginBinding?=null
     private val binding get()=_binding!!
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        val activity = activity as? LoginActivity ?: return
-        // Access activity here
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

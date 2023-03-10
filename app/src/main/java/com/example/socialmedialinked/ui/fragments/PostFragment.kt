@@ -28,6 +28,7 @@ import com.example.socialmedialinked.databinding.FragmentPostBinding
 import com.example.socialmedialinked.models.Indivpost
 import com.example.socialmedialinked.models.User
 import com.example.socialmedialinked.viewmodels.MainViewModel
+import com.example.socialmedialinked.viewmodels.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -39,29 +40,27 @@ import java.util.*
 class PostFragment : Fragment() {
     private var _binding: FragmentPostBinding? = null
     private val binding get() = _binding!!
-
-
+    lateinit var mainViewModel: MainViewModel
+    lateinit var userViewModel: UserViewModel
     val PICK_VIDEO_REQUEST_CODE = 100
     var svideo: Uri? = null
 
     var auth= FirebaseAuth.getInstance()
     val db = FirebaseDatabase.getInstance().reference
     val usersRef = db.child("Posts")
-    lateinit var newuri:String
     var email = auth.currentUser?.email
     var currentname:String?=null
 
-    val fileName = "profile_picture.jpg"
+
     var bitmap: Bitmap? = null
-    private fun encodeEmail(email: String): String {
-        return email.replace(".", ",")
-    }
-    lateinit var mainViewModel: MainViewModel
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        currentname= mainViewModel.user?.displayName
+        userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
+
     }
 
 
@@ -84,26 +83,28 @@ class PostFragment : Fragment() {
 
     }
     private fun insertpostData() {
-
         val baos = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
         var timer = getCurrentTimestamp()
-
+        val post_text = binding.editTextTextMultiLine.text.toString()
+        val user=userViewModel.getCurrentUser()
+        val name =user?.displayName!!
+        var postid=UUID.randomUUID()
+        var firebaseauth=FirebaseAuth.getInstance()
         if(bitmap!=null) {
             val storageRef = FirebaseStorage.getInstance().getReference("Posts").child("${UUID.randomUUID()}.jpg")
             storageRef.putBytes(data)
                 .addOnSuccessListener { taskSnapshot ->
                     Toast.makeText(requireContext(),"Success",Toast.LENGTH_LONG).show()
                     storageRef.downloadUrl.addOnSuccessListener { uri ->
-                        // Get the download URL for the uploaded image
                         val downloadUrl = uri.toString()
-                        val post_text = binding.editTextTextMultiLine.text.toString()
-                        val user=mainViewModel.setupProfle()
-                        val name =user?.displayName!! //auth.currentUser?.displayName!!
-
-                        val post = Indivpost(name, timer, post_text, downloadUrl)
-                        FirebaseDatabase.getInstance().getReference("Posts").push().setValue(post)
+                        user?.userposts?.add(postid.toString())
+                        FirebaseDatabase.getInstance().getReference("Users").child(mainViewModel.encodeEmail(firebaseauth.currentUser?.email!!)).setValue(user)
+                        var profile_piclink=user!!.photoUrl
+                        val post = Indivpost(name, timer, post_text, downloadUrl,profile_piclink)
+                        FirebaseDatabase.getInstance().getReference("Posts").child(postid.toString()).setValue(post)
+                        findNavController().navigate(R.id.action_postFragment_to_homeFragment)
                         Log.d(ContentValues.TAG, "Download URL: $downloadUrl")
                     }
                     Log.d(ContentValues.TAG, "Profile picture uploaded successfully")
@@ -113,7 +114,11 @@ class PostFragment : Fragment() {
                     Toast.makeText(requireContext(),"No Success",Toast.LENGTH_LONG).show()
                     Log.e(ContentValues.TAG, "Error uploading profile picture", exception)
                 }
-            findNavController().navigate(R.id.action_postFragment_to_homeFragment)
+
+        }
+        else{
+            val post = Indivpost(name, timer, post_text)
+            FirebaseDatabase.getInstance().getReference("Posts").push().setValue(post)
         }
     }
 

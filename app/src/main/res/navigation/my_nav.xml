@@ -9,7 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.socialmedialinked.ui.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postDisplayFragment"
+            app:destination="@id/postDisplayFragment" />
+    </fragment>
     <fragment
         android:id="@+id/postFragment"
         android:name="com.example.socialmedialinked.ui.fragments.PostFragment"
@@ -41,5 +48,14 @@
         <action
             android:id="@+id/action_editFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postDisplayFragment"
+        android:name="com.example.socialmedialinked.ui.fragments.PostDisplayFragment"
+        android:label="fragment_post_display"
+        tools:layout="@layout/fragment_post_display" >
+        <action
+            android:id="@+id/action_postDisplayFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

@@ -24,12 +24,11 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //firebaseAuth = FirebaseAuth.getInstance()
+
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         userViewModel= ViewModelProvider(requireActivity().viewModelStore, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
-        //mainViewModel.user=mainViewModel.setupProfle()
-       // databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(encodeEmail(firebaseAuth.currentUser?.email!!))
+
     }
 
 

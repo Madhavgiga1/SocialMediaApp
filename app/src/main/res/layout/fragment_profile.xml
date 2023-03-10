@@ -69,6 +69,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/BalticSeabgcolor"
+            android:text="@{String.valueOf(User.email)}"
             app:fontFamily="@font/anton"
             app:layout_constraintEnd_toEndOf="@+id/profile_name"
             app:layout_constraintHorizontal_bias="0.0"
@@ -79,11 +82,37 @@
             android:id="@+id/edit_button"
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:layout_marginStart="36dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_baseline_edit_24"
             app:layout_constraintBottom_toBottomOf="@+id/profile_name"
-            app:layout_constraintStart_toEndOf="@+id/profile_name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/profile_name"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/Motto_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="44dp"
+            android:textSize="25sp"
+            android:textColor="@color/BalticSeabgcolor"
+            android:text="Motto"
+            app:fontFamily="@font/cherry_swash_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_email" />
+
+        <TextView
+            android:id="@+id/motto_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{String.valueOf(User.motto)}"
+            android:textSize="25sp"
+            android:textColor="@color/BalticSeabgcolor"
+            app:layout_constraintBottom_toBottomOf="@+id/Motto_text"
+            app:layout_constraintStart_toEndOf="@+id/Motto_text"
+            app:layout_constraintTop_toTopOf="@+id/Motto_text"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,13 +79,16 @@ class SigninFragment : Fragment() {
                 if (task.isSuccessful) {
                     var userfromrealtime: User?
                     var firebaseAuth=FirebaseAuth.getInstance()
+                    var uuid: String? = firebaseAuth.currentUser?.uid!!
                     var databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(encodeEmail(firebaseAuth.currentUser?.email!!))
                     databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             userfromrealtime = snapshot.getValue(User::class.java)
+
                             if (userfromrealtime != null) {
-                                userViewModel.setCurrentUser(userfromrealtime!!)
-                                val intent = Intent(activity, MainActivity::class.java)
+                                //userViewModel.setCurrentUser(userfromrealtime!!)
+                                userfromrealtime?.userid=uuid
+                                val intent = Intent(requireActivity(), MainActivity::class.java)
                                 intent.putExtra("user", userfromrealtime)
                                 startActivity(intent)
                             }

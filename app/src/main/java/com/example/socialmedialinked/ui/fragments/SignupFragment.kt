@@ -47,17 +47,16 @@ class SignupFragment : Fragment() {
                     if (task.isSuccessful) {
                         var userinit=User(name,email)
                         val firebaseUser: FirebaseUser = task.result!!.user!!
-                        val registeredEmail = encodeEmail(email) // encode email address
+                        val registeredEmail = firebaseUser.email!!
+                        val registeredEmail2 = encodeEmail(email) // encode email address
                         Toast.makeText(requireActivity(), "registered", Toast.LENGTH_SHORT).show()
                         val database = FirebaseDatabase.getInstance().getReference("Users")
-                        database.child("users").child(registeredEmail).setValue(userinit)
+                        database.child(registeredEmail2).setValue(userinit)
 
                         FirebaseAuth.getInstance().signOut()
                         requireActivity().finish()
                     } else {
-                        Toast.makeText(requireActivity(), "not successful", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                        Toast.makeText(requireActivity(), "not successful: ${task.exception?.message}", Toast.LENGTH_LONG).show()                    }
                 }
         }
         else{
