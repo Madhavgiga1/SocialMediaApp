@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Likes(
     var likeCount:Int = 0,
-    val likedby: List<String> = emptyList()
+    var likedby: List<String?> = emptyList()
 ): Parcelable {
     constructor() : this(0, emptyList())
 }

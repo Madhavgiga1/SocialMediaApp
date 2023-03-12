@@ -10,7 +10,9 @@ data class Indivpost(
     var post_text:String?=null,
     var post_image: String?=null,
     var post_author_image:String?=null,
+    var postid:String?=null,
     var post_likes:Likes=Likes(0, emptyList())
+
 
 ): Parcelable {
 

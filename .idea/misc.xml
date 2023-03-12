@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/drawable/ic_account.xml" value="0.25092592592592594" />
         <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/drawable/login_signup_rectangle.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/drawable/textfielsinputshapes.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/layout/comment_row_layout.xml" value="0.22864583333333333" />
         <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/layout/fragment_baselogin.xml" value="0.328125" />
         <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/layout/fragment_display_profile.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/sharm/AndroidStudioProjects/SocialMediaLinked/app/src/main/res/layout/fragment_edit.xml" value="0.33177083333333335" />

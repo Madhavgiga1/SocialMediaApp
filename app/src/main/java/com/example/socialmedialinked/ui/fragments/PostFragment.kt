@@ -100,9 +100,10 @@ class PostFragment : Fragment() {
                     storageRef.downloadUrl.addOnSuccessListener { uri ->
                         val downloadUrl = uri.toString()
                         user?.userposts?.add(postid.toString())
+
                         FirebaseDatabase.getInstance().getReference("Users").child(mainViewModel.encodeEmail(firebaseauth.currentUser?.email!!)).setValue(user)
                         var profile_piclink=user!!.photoUrl
-                        val post = Indivpost(name, timer, post_text, downloadUrl,profile_piclink)
+                        val post = Indivpost(name, timer, post_text, downloadUrl,profile_piclink, postid.toString())
                         FirebaseDatabase.getInstance().getReference("Posts").child(postid.toString()).setValue(post)
                         findNavController().navigate(R.id.action_postFragment_to_homeFragment)
                         Log.d(ContentValues.TAG, "Download URL: $downloadUrl")

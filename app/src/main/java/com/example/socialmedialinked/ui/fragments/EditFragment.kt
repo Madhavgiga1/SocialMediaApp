@@ -20,10 +20,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import com.example.socialmedialinked.R
 import com.example.socialmedialinked.databinding.FragmentEditBinding
 import com.example.socialmedialinked.models.User
+import com.example.socialmedialinked.viewmodels.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -42,6 +45,7 @@ class EditFragment : Fragment() {
     val usersRef = db.child("Users")
     lateinit var newuri:String
     var email = auth.currentUser?.email
+    lateinit var userViewModel: UserViewModel
 
     val fileName = "profile_picture.jpg"
     var bitmap: Bitmap? = null
@@ -49,11 +53,17 @@ class EditFragment : Fragment() {
         return email.replace(".", ",")
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userViewModel= ViewModelProvider(requireActivity().viewModelStore, ViewModelProvider.NewInstanceFactory()).get(UserViewModel::class.java)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         _binding = FragmentEditBinding.inflate(layoutInflater, container, false)
         email= email?.let { encodeEmail(it) }
         usersRef.child("email").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -78,21 +88,27 @@ class EditFragment : Fragment() {
         val stream = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         val byteArray = stream.toByteArray()
-
+        var user=userViewModel.getCurrentUser() // If you do not get the instance of user here it will be null inside the add on successlistener function
         if(bitmap!=null) {
             storageRef.putBytes(byteArray)
                 .addOnSuccessListener { taskSnapshot ->
                     Toast.makeText(requireContext(),"Success",Toast.LENGTH_LONG)
                     storageRef.downloadUrl.addOnSuccessListener { uri ->
-
+                        var bio=binding.newBioValue.text.toString()
                         val downloadUrl = uri.toString()
                         var name=binding.signupEmail.text.toString()
                         newuri=downloadUrl
-                        var user=User(name,email,newuri)
-                        if (email != null) {
-                            FirebaseDatabase.getInstance().getReference().child("Users").child(encodeEmail(email!!)).setValue(user)
-                        }
+                        //User(name,email,newuri,bio)
+                        user?.displayName=name
+                        user?.motto=bio
 
+                        if (email != null) {
+                            user?.photoUrl=newuri
+                            FirebaseDatabase.getInstance().getReference().child("Users").child(encodeEmail(email!!)).setValue(user)
+
+                            userViewModel.setCurrentUser(user)
+                        }
+                        findNavController().navigate(R.id.action_editFragment_to_profileFragment)
                         Log.d(TAG, "Download URL: $downloadUrl")
                     }
                     Log.d(TAG, "Profile picture uploaded successfully")
@@ -106,7 +122,7 @@ class EditFragment : Fragment() {
 
 
 
-        findNavController().navigate(R.id.action_editFragment_to_profileFragment)
+
 
 
     }

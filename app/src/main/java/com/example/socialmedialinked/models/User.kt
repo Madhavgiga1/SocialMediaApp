@@ -5,9 +5,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class User(
-    val displayName: String= "Xyz",
+    var displayName: String= "Xyz",
     val email: String? = "",
-    val photoUrl: String? = "https://firebasestorage.googleapis.com/v0/b/linkedinclone-75a50.appspot.com/o/images%2Fhaircut.png?alt=media&token=54285c4a-fd73-4ea7-8c15-53f3c7383dc0",
+    var photoUrl: String? = "https://firebasestorage.googleapis.com/v0/b/linkedinclone-75a50.appspot.com/o/images%2Fhaircut.png?alt=media&token=54285c4a-fd73-4ea7-8c15-53f3c7383dc0",
     var motto: String? ="My first time using the app",
     var userid: String? =null,
     var userposts:MutableList<String>? = mutableListOf()
