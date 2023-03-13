@@ -13,7 +13,7 @@
         android:layout_height="110dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/upload"
+        android:src="@drawable/building"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />

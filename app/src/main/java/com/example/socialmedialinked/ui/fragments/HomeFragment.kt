@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.socialmedialinked.adapters.PostAdapter
 import com.example.socialmedialinked.databinding.FragmentHomeBinding
@@ -18,6 +20,7 @@ import com.google.firebase.database.*
 class HomeFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
     lateinit var userViewModel: UserViewModel
+    var navController:NavController?=null
 
 
     private var _binding:FragmentHomeBinding?=null
@@ -38,7 +41,9 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding= FragmentHomeBinding.inflate(layoutInflater,container,false)
+        navController=findNavController()
         setupRecyclerView()
+
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val postList = mutableListOf<Indivpost>()

@@ -59,5 +59,8 @@
         <action
             android:id="@+id/action_postDisplayFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="PostData"
+            app:argType="com.example.socialmedialinked.models.Indivpost" />
     </fragment>
 </navigation>

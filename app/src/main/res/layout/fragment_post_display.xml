@@ -11,21 +11,21 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/comment_post_holdeer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/comment_post_holdeer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/poster_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="6dp"
@@ -35,7 +35,7 @@
             tools:src="@tools:sample/avatars" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine2"
+            android:id="@+id/commentText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -45,19 +45,19 @@
             android:gravity="start|top"
             android:inputType="textMultiLine"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView7"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:layout_constraintEnd_toStartOf="@+id/postcomment"
+            app:layout_constraintStart_toEndOf="@+id/poster_image"
+            app:layout_constraintTop_toTopOf="@+id/poster_image"
             app:layout_constraintVertical_bias="0.714" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/postcomment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_post"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextTextMultiLine2"
+            app:layout_constraintBottom_toBottomOf="@+id/commentText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine2"
+            app:layout_constraintTop_toTopOf="@+id/commentText"
             app:layout_constraintVertical_bias="0.523" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

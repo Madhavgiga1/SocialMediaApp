@@ -1,9 +1,12 @@
 package com.example.socialmedialinked.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.socialmedialinked.R
@@ -11,6 +14,7 @@ import com.example.socialmedialinked.bindingAdapter.PostRowBinding
 import com.example.socialmedialinked.databinding.PostLayoutBinding
 import com.example.socialmedialinked.models.Indivpost
 import com.example.socialmedialinked.models.Likes
+import com.example.socialmedialinked.ui.fragments.HomeFragmentDirections
 import com.example.socialmedialinked.utils.PostsDiffUtil
 import com.example.socialmedialinked.viewmodels.UserViewModel
 import com.google.android.material.card.MaterialCardView
@@ -89,6 +93,14 @@ class PostAdapter():RecyclerView.Adapter<PostAdapter.MyViewHolder>() {
 
                 }
             })
+        }
+        holder.binding.commentCard.setOnClickListener{
+            try {
+                val action= HomeFragmentDirections.actionHomeFragmentToPostDisplayFragment(holder.binding.individualPost!!)
+                holder.binding.root.findNavController().navigate(action)
+            } catch (e:Exception){
+                Log.d("onRecipeClickListener",e.toString())
+            }
         }
         val currentpost=posts[position]
         holder.bind(currentpost)
